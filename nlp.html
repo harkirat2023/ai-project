@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Sentiment Analysis for Mood Detection</h2>
+<form method="POST" class="mb-4">
+    <div class="form-group">
+        <label for="text">Enter text to analyze:</label>
+        <textarea name="text" class="form-control" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Analyze</button>
+</form>
+
+{% if mood %}
+<div class="alert alert-info">
+    <h4>Detected Mood: <span class="text-capitalize">{{ mood }}</span></h4>
+    <a href="/mood?mood={{ mood }}" class="btn btn-success mt-2">Get {{ mood }} music recommendations</a>
+</div>
+{% endif %}
+{% endblock %}

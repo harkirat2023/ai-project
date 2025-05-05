@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+  <h1>Mood-Based Music Recommender</h1>
+  <p class="lead">Discover music based on your mood, favorite artists, or song lyrics</p>
+
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">By Artist</h5>
+          <p class="card-text">Find all songs by your favorite artist</p>
+          <a href="/artist" class="btn btn-primary">Explore</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">By Mood</h5>
+          <p class="card-text">Get songs that match your current mood</p>
+          <a href="/mood" class="btn btn-primary">Explore</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Sentiment Analysis</h5>
+          <p class="card-text">Analyze text to determine mood</p>
+          <a href="/nlp" class="btn btn-primary">Explore</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add this section to your existing template -->
+  <div class="recommendations-section">
+    <h2>Recommended For You</h2>
+    <button id="refresh-rec" class="btn">Refresh Recommendations</button>
+    <div id="recommendations-container" class="tracks-container">
+      <!-- Recommendations will appear here -->
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('refresh-rec').addEventListener('click', function () {
+      fetch('/get_recommendations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_id: 'current_user_id' })  // Replace with actual user ID
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            // Render recommendations (you'll need to implement this)
+            renderRecommendations(data.recommendations);
+          }
+        });
+    });
+
+    function renderRecommendations(trackIds) {
+      // Implement this to display tracks in your UI
+      // You might make additional API calls to get track details
+      console.log("Recommended tracks:", trackIds);
+    }
+  </script>
+</div>
+{% endblock %}

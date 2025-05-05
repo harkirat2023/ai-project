@@ -1,0 +1,13 @@
+numpy
+requests
+textblob
+dotenv
+beautifulsoup4
+spotipy==2.23.0
+vaderSentiment==3.3.2
+python-dotenv
+gunicorn==20.1.0
+flask
+flask-sqlalchemy==2.5.1
+pandas
+scikit-learn

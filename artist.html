@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Songs by Artist</h2>
+<form method="POST" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="artist_name" class="form-control" placeholder="Enter artist name" required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+{% if artist_name %}
+<h3>{{ artist_name }} - {{ count }} Songs</h3>
+<div class="list-group">
+    {% for track in tracks %}
+    <div class="list-group-item">{{ loop.index }}. {{ track }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

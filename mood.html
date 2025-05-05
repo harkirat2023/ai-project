@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Find Music by Mood</h2>
+<form method="POST" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="mood" class="form-control" placeholder="Happy, Sad, Chill, Energetic..." required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+{% if selected_mood %}
+<h3>Songs for "{{ selected_mood }}" mood</h3>
+{% endif %}
+
+{% if recommendations %}
+{% if 'error' in recommendations[0] %}
+<div class="alert alert-danger">{{ recommendations[0].error }}</div>
+{% else %}
+<div class="row">
+    {% for track in recommendations %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ track.name }}</h5>
+                <p class="card-text"><strong>Artist(s):</strong> {{ track.artists }}</p>
+                <p class="card-text"><strong>Album:</strong> {{ track.album }}</p>
+                <a href="{{ track.url }}" target="_blank" class="btn btn-sm btn-success">Play on Spotify</a>
+                {% if track.preview != 'No preview available' %}
+                <audio controls class="mt-2">
+                    <source src="{{ track.preview }}" type="audio/mpeg">
+                </audio>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your Listening History</h2>
+{% if message %}
+<div class="alert alert-info">{{ message }}</div>
+{% endif %}
+
+{% if tracks %}
+<div class="list-group mb-4">
+    {% for track in tracks %}
+    <div class="list-group-item">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h5>{{ track.name }}</h5>
+                <p class="mb-1"><strong>Artist(s):</strong> {{ track.artists }}</p>
+                <p class="mb-1"><strong>Album:</strong> {{ track.album }}</p>
+            </div>
+            <a href="{{ track.url }}" target="_blank" class="btn btn-sm btn-success align-self-center">Play</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h3>Recommendations Based on Your History</h3>
+<div class="alert alert-warning">
+    Recommendation logic will be implemented here based on your listening patterns.
+</div>
+{% else %}
+<div class="alert alert-warning">
+    No history found. Please <a href="/history" class="alert-link">connect your Spotify account</a>.
+</div>
+{% endif %}
+{% endblock %}
